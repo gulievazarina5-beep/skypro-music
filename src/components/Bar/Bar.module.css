@@ -259,3 +259,33 @@
     position: relative;
     margin-top: -7px;
 }
+
+.progressInput {
+    width: 100%;
+    height: 5px;
+    appearance: none;
+    background: #2e2e2e;
+    cursor: pointer;
+    margin: 0;
+    display: block;
+}
+
+.progressInput::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #b672ff;
+    cursor: pointer;
+}
+
+.btnRepeatActive svg {
+    stroke: #ffffff;
+}
+
+.timeDisplay {
+    color: #696969;
+    font-size: 14px;
+    margin-right: 24px;
+    white-space: nowrap;
+}
