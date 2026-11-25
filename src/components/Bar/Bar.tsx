@@ -3,7 +3,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { setIsPlaying } from '../../store/features/trackSlice';
+import {
+  setIsPlaying,
+  setNextTrack,
+  setPrevTrack,
+  toggleShuffle,
+} from '../../store/features/trackSlice';
 import styles from './Bar.module.css';
 
 const formatTime = (time: number): string => {
@@ -16,13 +21,14 @@ const formatTime = (time: number): string => {
 export default function Bar() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const dispatch = useAppDispatch();
-  const { currentTrack, isPlaying } = useAppSelector((state) => state.track);
+  const { currentTrack, isPlaying, isShuffle } = useAppSelector(
+    (state) => state.track,
+  );
 
   const [isLoop, setIsLoop] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -35,7 +41,6 @@ export default function Bar() {
       dispatch(setIsPlaying(false));
     });
   }, [currentTrack, dispatch]);
-
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -91,9 +96,8 @@ export default function Bar() {
     setVolume(Number(e.target.value));
   };
 
-  const handleNotImplemented = () => {
-    alert('Еще не реализовано');
-  };
+  const progressPercent = duration ? (currentTime / duration) * 100 : 0;
+  const volumePercent = volume * 100;
 
   return (
     <div className={styles.bar}>
@@ -104,7 +108,7 @@ export default function Bar() {
         onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
         onEnded={() => {
           if (!isLoop) {
-            dispatch(setIsPlaying(false));
+            dispatch(setNextTrack());
           }
         }}
       />
@@ -119,6 +123,9 @@ export default function Bar() {
             value={currentTime}
             onChange={handleSeek}
             className={styles.progressInput}
+            style={{
+              background: `linear-gradient(to right, #b672ff ${progressPercent}%, #2e2e2e ${progressPercent}%)`,
+            }}
           />
         </div>
 
@@ -127,7 +134,7 @@ export default function Bar() {
             <div className={styles.player__controls}>
               <div
                 className={styles.player__btnPrev}
-                onClick={handleNotImplemented}
+                onClick={() => dispatch(setPrevTrack())}
               >
                 <svg className={styles.player__btnPrevSvg}>
                   <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
@@ -153,7 +160,7 @@ export default function Bar() {
 
               <div
                 className={styles.player__btnNext}
-                onClick={handleNotImplemented}
+                onClick={() => dispatch(setNextTrack())}
               >
                 <svg className={styles.player__btnNextSvg}>
                   <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
@@ -165,7 +172,7 @@ export default function Bar() {
                 className={classNames(
                   styles.player__btnRepeat,
                   styles.btnIcon,
-                  { [styles.btnRepeatActive]: isLoop },
+                  { [styles.btnIconActive]: isLoop },
                 )}
               >
                 <svg className={styles.player__btnRepeatSvg}>
@@ -174,10 +181,11 @@ export default function Bar() {
               </div>
 
               <div
-                onClick={handleNotImplemented}
+                onClick={() => dispatch(toggleShuffle())}
                 className={classNames(
                   styles.player__btnShuffle,
                   styles.btnIcon,
+                  { [styles.btnIconActive]: isShuffle },
                 )}
               >
                 <svg className={styles.player__btnShuffleSvg}>
@@ -255,6 +263,9 @@ export default function Bar() {
                   step={0.01}
                   value={volume}
                   onChange={handleVolumeChange}
+                  style={{
+                    background: `linear-gradient(to right, #ffffff ${volumePercent}%, #797979 ${volumePercent}%)`,
+                  }}
                 />
               </div>
             </div>

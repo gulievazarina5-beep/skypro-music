@@ -86,6 +86,13 @@
     stroke: #d9d9d9;
 }
 
+.player__btnPrev:hover svg,
+.player__btnNext:hover svg,
+.player__btnPlay:hover svg {
+    fill: #acacac;
+    stroke: #acacac;
+}
+
 .player__btnRepeat {
     margin-right: 24px;
 }
@@ -207,6 +214,12 @@
     stroke: #ffffff;
 }
 
+.btnIconActive svg,
+.btnIconActive:hover svg {
+    fill: transparent;
+    stroke: #ffffff;
+}
+
 .volume__content {
     display: flex;
     flex-direction: row;
@@ -245,7 +258,6 @@
 
 .volume__progressLine::-webkit-slider-runnable-track {
     height: 2px;
-    background: #797979;
     border-radius: 5px;
 }
 
@@ -277,10 +289,6 @@
     border-radius: 50%;
     background: #b672ff;
     cursor: pointer;
-}
-
-.btnRepeatActive svg {
-    stroke: #ffffff;
 }
 
 .timeDisplay {
