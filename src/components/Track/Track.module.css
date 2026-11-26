@@ -1,0 +1,101 @@
+.playlistItem {
+    width: 100%;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.playlistTrack {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.trackTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 447px;
+}
+
+.trackTitleImage {
+    width: 51px;
+    height: 51px;
+    padding: 16px;
+    background: #313131;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 17px;
+}
+
+.trackTitleSvg {
+    width: 18px !important;
+    height: 17px !important;
+    min-width: 18px;
+    min-height: 17px;
+    fill: transparent;
+    stroke: #4e4e4e;
+}
+
+.trackTitleLink {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+}
+
+.trackTitleSpan {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #4e4e4e;
+}
+
+.trackAuthor {
+    width: 321px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.trackAuthorLink {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    text-align: left;
+}
+
+.trackAlbum {
+    width: 245px;
+}
+
+.trackAlbumLink {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #696969;
+}
+
+.trackTimeSvg {
+    width: 14px !important;
+    height: 12px !important;
+    min-width: 14px;
+    min-height: 12px;
+    margin-right: 17px;
+    fill: transparent;
+    stroke: #696969;
+}
+
+.trackTimeText {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #696969;
+    text-align: right;
+}
