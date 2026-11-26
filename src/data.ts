@@ -10,8 +10,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 205,
     album: 'Chase',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track1.wav',
     stared_user: [],
   },
   {
@@ -23,8 +22,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 165,
     album: 'Open Sea epic',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track2.wav',
     stared_user: [],
   },
   {
@@ -36,8 +34,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 305,
     album: 'Sneaky Snitch',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track3.wav',
     stared_user: [],
   },
   {
@@ -49,8 +46,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 324,
     album: 'Secret Garden',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track4.wav',
     stared_user: [],
   },
   {
@@ -62,8 +58,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 255,
     album: '-',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track5.wav',
     stared_user: [],
   },
   {
@@ -75,8 +70,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 200,
     album: 'Epic Heroic Conquest',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track6.wav',
     stared_user: [],
   },
   {
@@ -88,8 +82,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 206,
     album: 'The March OF The Final Battle',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track7.wav',
     stared_user: [],
   },
   {
@@ -101,8 +94,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 253,
     album: 'True Summer',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track8.wav',
     stared_user: [],
   },
   {
@@ -114,8 +106,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 135,
     album: 'Background Sensible',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track9.wav',
     stared_user: [],
   },
   {
@@ -127,8 +118,7 @@ export const data: TrackType[] = [
     duration_in_seconds: 206,
     album: 'Cinematic',
     logo: null,
-    track_file:
-      'https://herokuapp.com',
+    track_file: '/audio/track10.wav',
     stared_user: [],
   },
 ];
