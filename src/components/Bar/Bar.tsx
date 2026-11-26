@@ -34,22 +34,15 @@ export default function Bar() {
     const audio = audioRef.current;
     if (!audio || !currentTrack) return;
 
-    audio.currentTime = 0;
-    setCurrentTime(0);
-
-    audio.play().catch(() => {
-      dispatch(setIsPlaying(false));
-    });
-  }, [currentTrack, dispatch]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio || !currentTrack) return;
-
     if (isPlaying) {
-      audio.play().catch(() => {
-        dispatch(setIsPlaying(false));
-      });
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          if (err.name !== 'AbortError') {
+            dispatch(setIsPlaying(false));
+          }
+        });
+      }
     } else {
       audio.pause();
     }
@@ -72,16 +65,7 @@ export default function Bar() {
   }
 
   const togglePlay = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (isPlaying) {
-      audio.pause();
-      dispatch(setIsPlaying(false));
-    } else {
-      audio.play().catch(() => {});
-      dispatch(setIsPlaying(true));
-    }
+    dispatch(setIsPlaying(!isPlaying));
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,8 +88,14 @@ export default function Bar() {
       <audio
         ref={audioRef}
         src={currentTrack.track_file}
+        autoPlay
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        onLoadedMetadata={(e) => {
+          setDuration(e.currentTarget.duration);
+          setCurrentTime(0);
+          dispatch(setIsPlaying(true));
+          e.currentTarget.play().catch(() => {});
+        }}
         onEnded={() => {
           if (!isLoop) {
             dispatch(setNextTrack());
