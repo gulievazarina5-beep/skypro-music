@@ -11,9 +11,9 @@ interface PlaylistItem {
 }
 
 const PLAYLISTS: PlaylistItem[] = [
-  { id: 1, src: "/img/playlist01.png", alt: "day's playlist", href: "#" },
-  { id: 2, src: "/img/playlist02.png", alt: "100 dance hits", href: "#" },
-  { id: 3, src: "/img/playlist03.png", alt: "indie charge", href: "#" },
+  { id: 1, src: "/img/playlist01.png", alt: "day's playlist", href: "/category/1" },
+  { id: 2, src: "/img/playlist02.png", alt: "100 dance hits", href: "/category/2" },
+  { id: 3, src: "/img/playlist03.png", alt: "indie charge", href: "/category/3" },
 ];
 
 export default function Sidebar() {

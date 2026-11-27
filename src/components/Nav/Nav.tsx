@@ -15,13 +15,15 @@ export default function Nav() {
   return (
     <nav className={styles.main__nav}>
       <div className={styles.nav__logo}>
-        <Image
-          width={113}
-          height={17}
-          className={styles.logo__image}
-          src="/img/logo.png"
-          alt="logo"
-        />
+        <Link href="/">
+          <Image
+            width={113}
+            height={17}
+            className={styles.logo__image}
+            src="/img/logo.png"
+            alt="logo"
+          />
+        </Link>
       </div>
 
       <div className={styles.nav__burger} onClick={toggleMenu}>
@@ -44,7 +46,7 @@ export default function Nav() {
               </Link>
             </li>
             <li className={styles.menu__item}>
-              <Link href="/auth" className={styles.menu__link}>
+              <Link href="/auth/signin" className={styles.menu__link}>
                 Войти
               </Link>
             </li>

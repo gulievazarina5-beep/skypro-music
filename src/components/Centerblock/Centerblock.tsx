@@ -3,10 +3,13 @@
 import React, { useState, useMemo } from 'react';
 import classNames from 'classnames';
 import { TrackType, FilterCategory } from '../../types/track';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { setCurrentTrack, setPlaylist } from '../../store/features/trackSlice';
 import styles from './Centerblock.module.css';
 
 interface CenterblockProps {
   tracks: TrackType[];
+  title?: string;
 }
 
 const YEAR_SORT_OPTIONS: string[] = [
@@ -21,8 +24,18 @@ const formatDuration = (seconds: number): string => {
   return `${mins}:${secs}`;
 };
 
-export default function Centerblock({ tracks }: CenterblockProps) {
+export default function Centerblock({
+  tracks,
+  title = 'Треки',
+}: CenterblockProps) {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>(null);
+  const dispatch = useAppDispatch();
+  const { currentTrack, isPlaying } = useAppSelector((state) => state.track);
+
+  const handleTrackClick = (track: TrackType) => {
+    dispatch(setPlaylist(tracks));
+    dispatch(setCurrentTrack(track));
+  };
 
   const handleFilterClick = (nameFilter: FilterCategory) => {
     setActiveFilter((prev) => (prev === nameFilter ? null : nameFilter));
@@ -54,7 +67,7 @@ export default function Centerblock({ tracks }: CenterblockProps) {
         />
       </div>
 
-      <h2 className={styles.centerblock__h2}>Треки</h2>
+      <h2 className={styles.centerblock__h2}>{title}</h2>
 
       <div className={styles.centerblock__filter}>
         <div className={styles.filter__title}>Искать по:</div>
@@ -145,57 +158,73 @@ export default function Centerblock({ tracks }: CenterblockProps) {
         </div>
 
         <div className={styles.content__playlist}>
-          {tracks.map((track) => (
-            <div className={styles.playlist__item} key={track._id}>
-              <div className={styles.playlist__track}>
-                <div className={styles.track__title}>
-                  <div className={styles.track__titleImage}>
-                    <svg className={styles.track__titleSvg}>
-                      <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                    </svg>
+          {tracks.map((track) => {
+            const isCurrent = currentTrack?._id === track._id;
+
+            return (
+              <div
+                className={styles.playlist__item}
+                key={track._id}
+                onClick={() => handleTrackClick(track)}
+              >
+                <div className={styles.playlist__track}>
+                  <div className={styles.track__title}>
+                    <div className={styles.track__titleImage}>
+                      {isCurrent ? (
+                        <span
+                          className={classNames(styles.playingDot, {
+                            [styles.playingDotActive]: isPlaying,
+                          })}
+                        />
+                      ) : (
+                        <svg className={styles.track__titleSvg}>
+                          <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
+                        </svg>
+                      )}
+                    </div>
+                    <div>
+                      <a
+                        className={styles.track__titleLink}
+                        href="#"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        {track.name}
+                      </a>
+                    </div>
                   </div>
-                  <div>
+
+                  <div className={styles.track__author}>
                     <a
-                      className={styles.track__titleLink}
+                      className={styles.track__authorLink}
                       href="#"
                       onClick={(e) => e.preventDefault()}
                     >
-                      {track.name}
+                      {track.author}
                     </a>
                   </div>
-                </div>
 
-                <div className={styles.track__author}>
-                  <a
-                    className={styles.track__authorLink}
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    {track.author}
-                  </a>
-                </div>
+                  <div className={styles.track__album}>
+                    <a
+                      className={styles.track__albumLink}
+                      href="#"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      {track.album}
+                    </a>
+                  </div>
 
-                <div className={styles.track__album}>
-                  <a
-                    className={styles.track__albumLink}
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    {track.album}
-                  </a>
-                </div>
-
-                <div className={styles.track__time}>
-                  <svg className={styles.track__timeSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                  </svg>
-                  <span className={styles.track__timeText}>
-                    {formatDuration(track.duration_in_seconds)}
-                  </span>
+                  <div className={styles.track__time}>
+                    <svg className={styles.track__timeSvg}>
+                      <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
+                    </svg>
+                    <span className={styles.track__timeText}>
+                      {formatDuration(track.duration_in_seconds)}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
