@@ -9,6 +9,7 @@ import styles from './Centerblock.module.css';
 
 interface CenterblockProps {
   tracks: TrackType[];
+  title?: string;
 }
 
 const YEAR_SORT_OPTIONS: string[] = [
@@ -23,7 +24,10 @@ const formatDuration = (seconds: number): string => {
   return `${mins}:${secs}`;
 };
 
-export default function Centerblock({ tracks }: CenterblockProps) {
+export default function Centerblock({
+  tracks,
+  title = 'Треки',
+}: CenterblockProps) {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>(null);
   const dispatch = useAppDispatch();
   const { currentTrack, isPlaying } = useAppSelector((state) => state.track);
@@ -63,7 +67,7 @@ export default function Centerblock({ tracks }: CenterblockProps) {
         />
       </div>
 
-      <h2 className={styles.centerblock__h2}>Треки</h2>
+      <h2 className={styles.centerblock__h2}>{title}</h2>
 
       <div className={styles.centerblock__filter}>
         <div className={styles.filter__title}>Искать по:</div>
